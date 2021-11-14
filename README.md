@@ -2,6 +2,8 @@
 
 A very simple tool to get the battery status of a Steelseries Arctis 7 headset.
 
+This is basically a clone of [arctis7.py](https://gist.github.com/flozz/df45b59d6d3594c4b843e00c5df16dd0) written in go.
+
 ## Usage
 
 Currently there is no support for any command line arguments.
