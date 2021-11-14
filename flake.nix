@@ -1,5 +1,5 @@
 {
-  description = "A tool to get the battery status of a Steelseries Arctis 7 headset";
+  description = "A very simple tool to get the battery status of a Steelseries Arctis 7 headset";
 
   inputs.nixpkgs.url = "nixpkgs/nixos-21.05";
 
