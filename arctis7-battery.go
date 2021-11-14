@@ -16,7 +16,8 @@ func main() {
 	// Open the device using the VID and PID.
 	d, err := hid.OpenFirst(0x1038, 0x12ad)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		os.Exit(2)
 	}
 
 	_, err = d.Write([]byte{0x06, 0x14})
@@ -29,8 +30,8 @@ func main() {
 		log.Fatal(err)
 	}
 	if report[2] != 0x03 {
-		fmt.Printf("Headset not connected\n")
-		os.Exit(1)
+		log.Printf("Headset not connected\n")
+		os.Exit(3)
 	}
 
 	_, err = d.Write([]byte{0x06, 0x18})
@@ -41,5 +42,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Headset battery state: %d\n", report[2])
+	fmt.Printf("%d\n", report[2])
 }
