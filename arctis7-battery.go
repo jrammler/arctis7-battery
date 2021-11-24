@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/sstallion/go-hid"
 )
@@ -19,6 +19,13 @@ func main() {
 		log.Print(err)
 		os.Exit(2)
 	}
+
+	defer func() {
+		err = d.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	_, err = d.Write([]byte{0x06, 0x14})
 	if err != nil {
