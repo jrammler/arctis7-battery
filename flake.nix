@@ -17,7 +17,7 @@
 
       arctis7-battery = with final; buildGoModule rec {
         pname = "arctis7-battery";
-        version = "0.1.0";
+        version = "0.2.0";
         src = ./.;
         # vendorSha256 = "sha256-KX9whgHPzWLta7gbiL4b0a58Aey4eW7LhH5H8+Q5PbU=";
         vendorSha256 = "sha256-0Bd8UWTohAM/RRpwuukWu9mmohG3YdLpp8bIgpEtx18=";
