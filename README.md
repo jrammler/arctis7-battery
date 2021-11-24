@@ -6,9 +6,15 @@ This is basically a clone of [arctis7.py](https://gist.github.com/flozz/df45b59d
 
 ## Usage
 
-Currently there is no support for any command line arguments.
+Currently the only supported flag is `-d` to define the time between outputs.
+
+```shell
+arctis7-battery      # prints the battery state once
+arctis7-battery -d 5 # prints the battery state every 5 seconds
+```
+
 If the headset is connected and no errors occur, the battery percentage is written to stdout.
-In case of an error, it is logged to stderr and an exit code is returned.
+In case of an error, it is logged to stderr and a non zero exit code is returned.
 
 ## Dependencies
 

@@ -1,33 +1,16 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
-	"os"
+	"time"
 
 	"github.com/sstallion/go-hid"
 )
 
-func main() {
-	if err := hid.Init(); err != nil {
-		log.Fatal(err)
-	}
-
-	// Open the device using the VID and PID.
-	d, err := hid.OpenFirst(0x1038, 0x12ad)
-	if err != nil {
-		log.Print(err)
-		os.Exit(2)
-	}
-
-	defer func() {
-		err = d.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	_, err = d.Write([]byte{0x06, 0x14})
+func getBattery(d *hid.Device) int {
+	_, err := d.Write([]byte{0x06, 0x14})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,8 +20,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if report[2] != 0x03 {
-		log.Printf("Headset not connected\n")
-		os.Exit(3)
+		log.Fatal("Headset not connected")
 	}
 
 	_, err = d.Write([]byte{0x06, 0x18})
@@ -49,5 +31,37 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%d\n", report[2])
+
+	return int(report[2])
+}
+
+func main() {
+	delay := flag.Int("d", 0, "Delay in seconds between between outputs. A value of 0 outputs only once.")
+	flag.Parse()
+
+	if err := hid.Init(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Open the device using the VID and PID.
+	d, err := hid.OpenFirst(0x1038, 0x12ad)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		err = d.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	if *delay > 0 {
+		for true {
+			fmt.Printf("%d\n", getBattery(d))
+			time.Sleep(time.Duration(*delay) * time.Second)
+		}
+	} else {
+		fmt.Printf("%d\n", getBattery(d))
+	}
 }
