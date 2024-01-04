@@ -1,7 +1,7 @@
 {
   description = "A very simple tool to get the battery status of a Steelseries Arctis 7 headset";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-21.05";
+  inputs.nixpkgs.url = "nixpkgs/nixos-23.11";
 
   outputs = { self, nixpkgs }:
   let
@@ -19,9 +19,7 @@
         pname = "arctis7-battery";
         version = "0.3.0";
         src = ./.;
-        # vendorSha256 = "sha256-KX9whgHPzWLta7gbiL4b0a58Aey4eW7LhH5H8+Q5PbU=";
-        vendorSha256 = "sha256-0Bd8UWTohAM/RRpwuukWu9mmohG3YdLpp8bIgpEtx18=";
-        # vendorSha256 = null;
+        vendorHash = "sha256-0Bd8UWTohAM/RRpwuukWu9mmohG3YdLpp8bIgpEtx18=";
 
         buildInputs = [ hidapi udev ];
       };
